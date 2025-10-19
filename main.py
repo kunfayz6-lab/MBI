@@ -31,13 +31,11 @@ print( """
         █ ║
  █████ ║
  ╚═════╝
-   
-
 ════════════════════════════════════════════════════════
 """)
 print(f"\033[33m╔{'═' * 70}╗\033[0m")
-print(f"\033[94m{' ' * 45}v.1.0\033[0m")
-print(f"\033[33m{' ' * 10}Author By: KunFayz\033[0m")
+print(f"\033[94m║{' ' * 45}v.1.0║\033[0m")
+print(f"\033[33m║{' ' * 10}Author By: KunFayz║\033[0m")
 print(f"\033[92m╚{'═'  * 70}╝\033[0m")
 regular_headers = [ "User-agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0",
                     "Accept-language: en-US,en,q=0.5"]
