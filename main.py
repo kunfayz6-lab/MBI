@@ -124,8 +124,8 @@ def main():
     bar.finish()
 
     while True:
-        print("\033[32m[÷]".format(len(socket_list)))
-        print(
+        print("\033[32m[]".format(len(socket_list)))
+        print("\033[95m[]
 
         for s in socket_list:
             try:
