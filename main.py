@@ -4,7 +4,6 @@ import os
 import sys
 import random
 import time
-import fade
 import socket
 import getpass
 from progress.bar import Bar
@@ -36,8 +35,6 @@ print( """
 
 ════════════════════════════════════════════════════════
 """)
-faded_text = fade.fire(logo)
-print(faded_text)
 regular_headers = [ "User-agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0",
                     "Accept-language: en-US,en,q=0.5"]
 
