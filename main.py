@@ -12,7 +12,14 @@ from progress.bar import Bar
 
 os.system("clear")
 logo = """
-
+                                            --------------,        .---------------               {Fore.BLUE}║ ",
+f"{Fore.BLUE}║{Fore.GREEN}                    ---------   \  __  /    ----------                 {Fore.BLUE}║ ",
+f"{Fore.BLUE}║{Fore.GREEN}                      -------    \(  )/    --------                    {Fore.BLUE}║ ",
+f"{Fore.BLUE}║{Fore.GREEN}                      //////     . \/ -   ------                       {Fore.BLUE}║ ",
+f"{Fore.BLUE}║{Fore.GREEN}                     //// / //   :    : -----                          {Fore.BLUE}║ ",
+f"{Fore.BLUE}║{Fore.GREEN}                    // /   /     '`   ,-----                           {Fore.BLUE}║ ",
+f"{Fore.BLUE}║{Fore.GREEN}                   // /  //    / //..\\\                                {Fore.BLUE}║ ",
+f"{Fore.BLUE}║{Fore.GREEN}                  //          / //,..,\\\                               
 
 
 
