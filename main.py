@@ -104,7 +104,7 @@ def init_socket(ip,port):
 def main():
     if len(sys.argv)<5:
         print(("\033[32m┌[KunFayz•••\033[0m")
-        print(("Usage: {} https//example.co.il 443/80 1000 2".format(sys.argv[0])))
+        print(("\033[32m└> Usage: {} https//example.co.il 443/80 1000 2\033[0m)".format(sys.argv[0])))
         return
 
     ip = sys.argv[1]
