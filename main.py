@@ -33,7 +33,7 @@ class colors:
     UNDERLINE = '\033[4m'
     BLINK = '\033[5m'
     REVERSE = '\033[7m'
-    HIDDEN = '\033[8m'9
+    HIDDEN = '\033[8m'
     STRIKETHROUGH = '\033[9m'
     DOUBLE_UNDERLINE = '\033[21m'
     NORMAL_COLOR = '\033[22m'
